@@ -18,7 +18,20 @@ teardown() {
   echo "teardown" >&3
 }
 
-@test "test_name" {
+@test "test_name_is_included" {
+  run two_fer.sh "Wences"
+  assert_output --partial "Wences"
+}
+
+@test "test_complete_exact_message_when_given_arg" {
+  run two_fer.sh "David"
+  assert_output "One for David, one for me."
+
+  run two_fer.sh "Billy Jean"
+  assert_output "One for Billy Jean, one for me."
+}
+
+@test "test_message_when_no_args" {
   run two_fer.sh
-  assert_output 'Hola mundo'
+  assert_output "One for you, one for me."
 }
